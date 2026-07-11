@@ -105,6 +105,55 @@ def add_prompt():
 
     print("프롬프트가 추가되었습니다!")
 
+def show_category():
+    """카테고리별 프롬프트를 출력한다."""
+
+    categories = [
+        "텍스트 생성",
+        "이미지 생성",
+        "영상 생성",
+        "페르소나",
+        "자동화",
+        "기타"
+    ]
+
+    print("\n=== 카테고리별 조회 ===")
+
+    for index, category in enumerate(categories, start=1):
+        print(f"{index}. {category}")
+
+    while True:
+        choice = input("선택: ").strip()
+
+        if choice.isdigit():
+            number = int(choice)
+
+            if 1 <= number <= len(categories):
+                selected_category = categories[number - 1]
+                break
+
+        print("올바른 번호를 입력해주세요.")
+
+    print(f"\n[{selected_category}] 카테고리 프롬프트")
+
+    count = 0
+
+    for index, prompt in enumerate(prompts, start=1):
+
+        if prompt["category"] == selected_category:
+
+            star = "⭐" if prompt["favorite"] else ""
+
+            print(f"{index}. {prompt['title']} {star}")
+
+            count += 1
+
+    if count == 0:
+        print("해당 카테고리의 프롬프트가 없습니다.")
+
+    else:
+        print(f"\n총 {count}개의 프롬프트")
+
 def main():
     """프로그램의 메뉴를 반복 실행한다."""
     while True:
@@ -121,7 +170,10 @@ def main():
         elif choice == "2":
             show_prompt_list()
 
-        elif choice in ["3", "4", "5", "6", "7"]:
+        elif choice == "3":
+            show_category()
+
+        elif choice in ["4", "5", "6", "7"]:
             print("아직 준비 중인 기능입니다.")
 
         else:
