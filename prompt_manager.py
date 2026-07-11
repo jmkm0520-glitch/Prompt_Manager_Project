@@ -248,6 +248,26 @@ def manage_favorite():
     else:
         print(f"'{prompt['title']}' 프롬프트의 즐겨찾기를 해제했습니다!")
 
+def show_favorites():
+    """즐겨찾기된 프롬프트만 출력한다."""
+
+    print("\n=== 즐겨찾기 목록 ===")
+
+    favorite_prompts = []
+
+    for prompt in prompts:
+        if prompt["favorite"]:
+            favorite_prompts.append(prompt)
+
+    if len(favorite_prompts) == 0:
+        print("즐겨찾기한 프롬프트가 없습니다.")
+        return
+
+    for index, prompt in enumerate(favorite_prompts, start=1):
+        print(f"{index}. [{prompt['category']}] {prompt['title']} ⭐")
+
+    print(f"\n총 {len(favorite_prompts)}개의 즐겨찾기")
+
 def main():
     """프로그램의 메뉴를 반복 실행한다."""
     while True:
@@ -277,7 +297,7 @@ def main():
             manage_favorite()
 
         elif choice == "7":
-            print("아직 준비 중인 기능입니다.")
+            show_favorites()
 
         else:
             print("잘못된 번호입니다. 다시 입력해주세요.")
