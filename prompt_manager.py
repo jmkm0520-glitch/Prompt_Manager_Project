@@ -220,6 +220,34 @@ def show_prompt_detail():
     print(prompt["content"])
     print("────────────────────────────")
 
+def manage_favorite():
+    """선택한 프롬프트의 즐겨찾기 상태를 추가하거나 해제한다."""
+
+    print("\n=== 즐겨찾기 관리 ===")
+
+    if len(prompts) == 0:
+        print("등록된 프롬프트가 없습니다.")
+        return
+
+    while True:
+        number_input = input("프롬프트 번호 입력: ").strip()
+
+        if number_input.isdigit():
+            number = int(number_input)
+
+            if 1 <= number <= len(prompts):
+                prompt = prompts[number - 1]
+                break
+
+        print("올바른 프롬프트 번호를 입력해주세요.")
+
+    prompt["favorite"] = not prompt["favorite"]
+
+    if prompt["favorite"]:
+        print(f"'{prompt['title']}' 프롬프트를 즐겨찾기에 추가했습니다!")
+    else:
+        print(f"'{prompt['title']}' 프롬프트의 즐겨찾기를 해제했습니다!")
+
 def main():
     """프로그램의 메뉴를 반복 실행한다."""
     while True:
@@ -245,7 +273,10 @@ def main():
         elif choice == "5":
             show_prompt_detail()
 
-        elif choice in ["6", "7"]:
+        elif choice == "6":
+            manage_favorite()
+
+        elif choice == "7":
             print("아직 준비 중인 기능입니다.")
 
         else:
