@@ -188,6 +188,38 @@ def search_prompt():
 
     print(f"\n{len(results)}개의 프롬프트를 찾았습니다.")
 
+def show_prompt_detail():
+    """선택한 프롬프트의 상세 내용을 출력한다."""
+
+    print("\n=== 프롬프트 상세 보기 ===")
+
+    if len(prompts) == 0:
+        print("등록된 프롬프트가 없습니다.")
+        return
+
+    while True:
+        number_input = input("프롬프트 번호 입력: ").strip()
+
+        if number_input.isdigit():
+            number = int(number_input)
+
+            if 1 <= number <= len(prompts):
+                prompt = prompts[number - 1]
+                break
+
+        print("올바른 프롬프트 번호를 입력해주세요.")
+
+    star = "⭐" if prompt["favorite"] else "아님"
+
+    print("\n────────────────────────────")
+    print(f"제목: {prompt['title']}")
+    print(f"카테고리: {prompt['category']}")
+    print(f"즐겨찾기: {star}")
+    print("────────────────────────────")
+    print("내용:")
+    print(prompt["content"])
+    print("────────────────────────────")
+
 def main():
     """프로그램의 메뉴를 반복 실행한다."""
     while True:
@@ -210,7 +242,10 @@ def main():
         elif choice == "4":
             search_prompt()
 
-        elif choice in ["5", "6", "7"]:
+        elif choice == "5":
+            show_prompt_detail()
+
+        elif choice in ["6", "7"]:
             print("아직 준비 중인 기능입니다.")
 
         else:
